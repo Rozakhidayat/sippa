@@ -1,0 +1,68 @@
+ /* CSS Responsive Table */
+ @media (max-width: 768px) {
+   .header-container {
+     flex-direction: row !important;
+     justify-content: space-between !important;
+     align-items: center !important;
+   }
+
+   .table thead {
+     display: none !important;
+   }
+
+   .table tbody tr {
+     display: block;
+     margin-bottom: 1rem;
+     border: 1px solid #e9ecef !important;
+     border-radius: 12px;
+     background-color: #ffffff;
+     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+     overflow: hidden;
+   }
+
+   .table tbody td {
+     display: flex;
+     justify-content: space-between;
+     /* Label kiri, Data kanan */
+     align-items: center;
+     border: none !important;
+     border-bottom: 1px solid #f8f9fa !important;
+     padding: 10px 15px !important;
+   }
+
+   .table tbody td::before {
+     content: attr(data-label);
+     font-weight: 700;
+     text-transform: uppercase;
+     font-size: 10px;
+     color: #888;
+     text-align: left;
+   }
+
+   /* KHUSUS KOLOM AKSI */
+   .table tbody td:last-child {
+     display: flex;
+     justify-content: space-between;
+     /* Paksa Label di kiri, Tombol di kanan */
+     align-items: center;
+     background-color: #fafafa;
+     border-bottom: none !important;
+     padding: 12px 15px !important;
+   }
+
+   /* Hilangkan margin default agar sejajar */
+   .table tbody td:last-child::before {
+     margin-bottom: 0 !important;
+   }
+
+   .btn-sm-custom {
+     padding: 5px 15px !important;
+     font-size: 12px !important;
+   }
+ }
+
+ @media (min-width: 769px) {
+   .table thead {
+     display: table-header-group !important;
+   }
+ }

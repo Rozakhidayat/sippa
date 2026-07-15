@@ -1,0 +1,95 @@
+@media (max-width: 768px) {
+
+  /* 1. Paksa Container Utama */
+  .stepper {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    padding-left: 10px;
+    /* Jarak dari pinggir kartu */
+    gap: 0 !important;
+  }
+
+  /* 2. Reset Item Stepper */
+  .stepper .flex-fill {
+    flex: none !important;
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    /* Biar icon & teks sejajar horizontal */
+    justify-content: flex-start !important;
+    position: relative;
+    padding: 15px 0 !important;
+    margin: 0 !important;
+  }
+
+  /* 3. KUNCI GARIS BIAR LURUS (ANTARA ICON) */
+  .step-line {
+    width: 2px !important;
+    height: 40px !important;
+    /* Panjang garis ke bawah */
+    flex: none !important;
+    /* 19px adalah titik tengah dari lingkaran 40px */
+    margin: -10px 0 -10px 19px !important;
+    z-index: 1 !important;
+  }
+
+  /* 4. Atur Label Status di Samping */
+  .stepper .text-center {
+    text-align: left !important;
+    width: auto !important;
+  }
+
+  .stepper .mt-2 {
+    margin-top: 0 !important;
+    margin-left: 20px !important;
+    /* Jarak teks dari icon */
+    font-size: 13px;
+    font-weight: 500;
+    color: #444;
+  }
+
+  /* 5. Info List (No Ticket, dll) */
+  .card .d-flex.justify-content-between {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 2px;
+    padding: 10px 0 !important;
+  }
+
+  /* 6. Pindah Status ke Bawah */
+  .section .row {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .col-lg-8 {
+    order: 1;
+  }
+
+  .col-lg-4 {
+    order: 2;
+  }
+}
+
+/* Base Styling Circle */
+.step-circle {
+  min-width: 40px;
+  max-width: 40px;
+  height: 40px;
+  z-index: 2 !important;
+  position: relative;
+}
+
+/* Tambahan CSS pendukung agar teks tidak pecah di mobile */
+.extra-small {
+  font-size: 11px;
+}
+
+.min-width-0 {
+  min-width: 0;
+}
+
+.hover-bg:hover {
+  background-color: #f8f9fa;
+  transition: 0.2s;
+}
