@@ -7,6 +7,7 @@
   <title>SIPPA</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
+  <meta name="google-site-verification" content="GQp5vW-9Ib8kKhKg99rUe09s-Mf2jGEQXPhCfX_YQt4" />
 
   <!-- Favicons -->
   <link href="{{ asset('landing/assets/img/icon-favicon.jpg')}}" rel="icon">
