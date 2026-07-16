@@ -89,7 +89,7 @@ new class extends Component
 
             <li class="nav-item">
                 <a class="{{ request()->is('themes*') ? 'active' : '' }}" href="/themes" wire:navigate>
-                    <i class="bi bi-ui-checks"></"></i>
+                    <i class="bx bxs-component"></i>
                     <span>Tema</span>
                 </a>
             </li>
@@ -97,7 +97,7 @@ new class extends Component
             <li class="nav-item">
                 <a class="{{ request()->is('theme-categories*') ? 'active' : '' }}" href="/theme-categories"
                     wire:navigate>
-                    <i class="bi bi-ui-checks"></"></i>
+                    <i class="bi bi-tags"></i>
                     <span>Kategori</span>
                 </a>
             </li>
