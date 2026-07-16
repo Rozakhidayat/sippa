@@ -16,8 +16,8 @@ new class extends Component
 
             @if(auth()->user()->role->name === 'Manajer TI')
             <li class="nav-item">
-                <a class="nav-link nav-link {{ request()->is('manajerti/dashboard*') ? '' : 'collapsed' }}" href="/manajerti/dashboard"
-                    wire:navigate>
+                <a class="nav-link nav-link {{ request()->is('manajerti/dashboard*') ? '' : 'collapsed' }}"
+                    href="/manajerti/dashboard" wire:navigate>
                     <i class="bi bi-grid"></i>
                     <span>Dashboard</span>
                 </a>
@@ -57,7 +57,7 @@ new class extends Component
             </li> --}}
 
 
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="nav-link {{ request()->is('themes*') || request()->is('theme-categories*') ? '' : 'collapsed' }}"
                     data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
                     <i class="bx bxs-component"></i>
@@ -85,7 +85,23 @@ new class extends Component
                     </li>
 
                 </ul>
+            </li> --}}
+
+            <li class="nav-item">
+                <a class="{{ request()->is('themes*') ? 'active' : '' }}" href="/themes" wire:navigate>
+                    <i class="bi bi-ui-checks"></"></i>
+                    <span>Tema</span>
+                </a>
             </li>
+
+            <li class="nav-item">
+                <a class="{{ request()->is('theme-categories*') ? 'active' : '' }}" href="/theme-categories"
+                    wire:navigate>
+                    <i class="bi bi-ui-checks"></"></i>
+                    <span>Kategori</span>
+                </a>
+            </li>
+
 
             <li class="nav-item">
                 <a class="nav-link {{ request()->is('workflows*') ? '' : 'collapsed' }}" href="/workflows"
@@ -139,8 +155,8 @@ new class extends Component
 
             @if(auth()->user()->role->name === 'Staff')
             <li class="nav-item">
-                <a class="nav-link nav-link {{ request()->is('dashboard*') ? '' : 'collapsed' }}"
-                    href="/dashboard" wire:navigate>
+                <a class="nav-link nav-link {{ request()->is('dashboard*') ? '' : 'collapsed' }}" href="/dashboard"
+                    wire:navigate>
                     <i class="bi bi-grid"></i>
                     <span>Dashboard</span>
                 </a>
