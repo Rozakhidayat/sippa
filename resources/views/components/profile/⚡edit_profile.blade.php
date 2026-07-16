@@ -31,11 +31,11 @@ new class extends Component
 
         if($this->avatars){
             $user = Auth::user();
-            if ($user->avatars && Storage::disk('public')->exists($user->avatars)) {
-                Storage::disk('public')->delete($user->avatars);
+            if ($user->avatars && Storage::disk((config('filesystems.default_public_disk')))->exists($user->avatars)) {
+                Storage::disk(config('filesystems.default_public_disk'))->delete($user->avatars);
             }
             
-            $path = $this->avatars->store('avatars', 'public');
+            $path = $this->avatars->store('avatars', (config('filesystems.default_public_disk')));
 
             $user->update([
             'avatars' => $path
@@ -53,7 +53,7 @@ new class extends Component
     {
         $user = Auth::user();
         if ($user->avatars) {
-            Storage::disk('public')->delete($user->avatars);
+            Storage::disk((config('filesystems.default_public_disk')))->delete($user->avatars);
         }
         $user->update(['avatars' => null]);
         
