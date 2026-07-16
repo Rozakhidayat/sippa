@@ -88,20 +88,19 @@ new class extends Component
             </li> --}}
 
             <li class="nav-item">
-                <a class="{{ request()->is('themes*') ? 'active' : '' }}" href="/themes" wire:navigate>
+                <a class="nav-link {{ request()->is('themes*') ? '' : 'collapsed' }}" href="/themes" wire:navigate>
                     <i class="bx bxs-component"></i>
                     <span>Tema</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="{{ request()->is('theme-categories*') ? 'active' : '' }}" href="/theme-categories"
+                <a class="nav-link {{ request()->is('theme-categories*') ? '' : 'collapsed' }}" href="/theme-categories"
                     wire:navigate>
                     <i class="bi bi-tags"></i>
                     <span>Kategori</span>
                 </a>
             </li>
-
 
             <li class="nav-item">
                 <a class="nav-link {{ request()->is('workflows*') ? '' : 'collapsed' }}" href="/workflows"
