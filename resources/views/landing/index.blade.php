@@ -10,8 +10,9 @@
   <meta name="google-site-verification" content="GQp5vW-9Ib8kKhKg99rUe09s-Mf2jGEQXPhCfX_YQt4" />
 
   <!-- Favicons -->
-  <link href="{{ asset('landing/assets/img/icon-favicon.jpg')}}" rel="icon">
-  {{-- <link href="{{ asset('landing/assets/img/icon-favicon.jpg') }}" rel="apple-touch-icon"> --}}
+  <link href="{{ asset('assets/img/favicon.ico') }}" rel="icon">
+  {{--
+  <link href="{{ asset('landing/assets/img/icon-favicon.jpg') }}" rel="apple-touch-icon"> --}}
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
