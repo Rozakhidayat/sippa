@@ -141,9 +141,15 @@ class Submission extends Model
 
     public function createDevelopmentProgres()
     {
-        $tasks = DevelopmentTask::where('type_development', $this->type_development)
-                ->orderBy('sort_order', 'asc')
-                ->get();
+        $tasks = DevelopmentTask::query()
+        ->where('type_development', $this->type_development)
+        ->orderBy('sort_order', 'asc')
+        ->get();
+        
+        // $tasks = DevelopmentTask::where('type_development', $this->type_development)
+        //         ->orderBy('sort_order', 'asc')
+        //         ->get();
+        
         foreach ($tasks as $index => $task) {
             $this->develop_progres()->create([
                 'develop_task_id' => $task->id,
@@ -176,20 +182,20 @@ class Submission extends Model
                     $this->save();
 
                     if ($nextStep->role_id) {
-                        $targets = User::query()
-                            ->where('role_id', $nextStep->role_id)
-                            ->where('departement_id', $this->departement_id)
-                            ->first();
+                    $role = \App\Models\Role::find($nextStep->role_id);
+                    $roleName = $role ? $role->name : '';
 
-                        if ($targets) {
-                                $targets->notify(new SubmissionNotification($this, "Menunggu persetujuan Anda"));
-                        }
+                    $query = User::query()->where('role_id', $nextStep->role_id);
+                    
+                    if ($roleName === 'SVP') {
+                        $query->where('departement_id', $this->departement_id);
                     }
 
-                    $this->user->notify(new SubmissionNotification(
-                        $this, 
-                        "Pengajuan Anda disetujui oleh $roleName"
-                    ));
+                    $targets = $query->get();
+                    foreach ($targets as $target) {
+                        $target->notify(new SubmissionNotification($this, "Menunggu persetujuan Anda"));
+                    }
+                }
 
                 } else {
                     $this->status = 'disetujui';

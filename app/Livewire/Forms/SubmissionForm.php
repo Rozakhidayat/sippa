@@ -197,6 +197,22 @@ class SubmissionForm extends Form
 
         $submission->previous_state = null;
         $submission->save();
+        $currentWorkflow = Workflow::query()->find($submission->workflow_id);
+        // $currentWorkflow = Workflow::find($submission->workflow_id);
+        
+        if ($currentWorkflow && $currentWorkflow->role_id) {
+            $targets = User::query()
+                ->where('role_id', $currentWorkflow->role_id)
+                ->where('departement_id', $this->departement_id)
+                ->get();
+                
+            foreach ($targets as $target) {
+                $target->notify(new \App\Notifications\SubmissionNotification(
+                    $submission, 
+                    "Pengajuan Aplikasi {$submission->application_name} telah direvisi dan menunggu verifikasi Anda"
+                ));
+            }
+        }
     }
 
     public function submitDisposition()
