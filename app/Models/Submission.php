@@ -83,8 +83,7 @@ class Submission extends Model
             return 'done';
         }
 
-        // 1. TAMBAHAN KHUSUS: Jika status rejected atau revision, 
-        // tandai step yang sedang aktif/berhenti saat ini dengan warna merah/kuning
+        // 1. Cek jika workflow_id cocok
         if ($this->workflow_id === $targetStep->id) {
             if ($this->status === 'rejected') {
                 return 'active rejected';
@@ -95,8 +94,7 @@ class Submission extends Model
             return 'active'; 
         }
         
-        // 2. Jika status bukan workflow_id tapi teks statusnya mengandung rejected/revision,
-        // fallback ke step saat ini ($currentStep)
+  
         if ($currentStep && $currentStep->id === $targetStep->id) {
             if ($this->status === 'rejected') {
                 return 'active rejected';
@@ -104,8 +102,10 @@ class Submission extends Model
             if ($this->status === 'revision' || $this->status === 'perbaikan_brd') {
                 return 'active revision'; 
             }
+            return 'active'; 
         }
 
+        // 3. Jika step sudah terlewati
         if ($currentStep && $currentStep->sort_order > $targetStep->sort_order) {
             return 'done';
         }
@@ -120,6 +120,55 @@ class Submission extends Model
         
         return '';
     }
+    // public function getStepStatus(string $targetState): string
+    // {
+    //     $currentStep = $this->step; 
+    //     $targetStep = Workflow::query()
+    //         ->where('state_code', $targetState)
+    //         ->first();
+
+    //     if (!$targetStep) return '';
+
+    //     if ($this->status === 'disetujui') {
+    //         return 'done';
+    //     }
+
+    //     if ($this->workflow_id === $targetStep->id) {
+    //         if ($this->status === 'rejected') {
+    //             return 'active rejected';
+    //         }
+    //         if ($this->status === 'revision' || $this->status === 'perbaikan_brd') {
+    //             return 'active revision'; 
+    //         }
+    //         return 'active'; 
+    //     }
+        
+    //     // 2. Jika status bukan workflow_id tapi teks statusnya mengandung rejected/revision,
+    //     // fallback ke step saat ini ($currentStep)
+    //     if ($currentStep && $currentStep->id === $targetStep->id) {
+    //         if ($this->status === 'rejected') {
+    //             return 'active rejected';
+    //         }
+    //         if ($this->status === 'revision' || $this->status === 'perbaikan_brd') {
+    //             return 'active revision'; 
+    //         }
+    //     }
+
+    //     if ($currentStep && $currentStep->sort_order > $targetStep->sort_order) {
+    //         return 'done';
+    //     }
+        
+    //     $isLastStep = ! Workflow::query()
+    //         ->where('sort_order', '>', $currentStep?->sort_order ?? 0)
+    //         ->exists();
+
+    //     if ($isLastStep && $this->status === $targetState) {
+    //         return 'done';
+    //     }
+        
+    //     return '';
+    // }
+    
     // public function getStepStatus(string $targetState): string
     // {
     //     $currentStep = $this->step; 
