@@ -70,7 +70,6 @@ class Submission extends Model
         };
     }
 
-    
     public function getStepStatus(string $targetState): string
     {
         $currentStep = $this->step; 
@@ -83,13 +82,28 @@ class Submission extends Model
         if ($this->status === 'disetujui') {
             return 'done';
         }
-        
+
+        // 1. TAMBAHAN KHUSUS: Jika status rejected atau revision, 
+        // tandai step yang sedang aktif/berhenti saat ini dengan warna merah/kuning
         if ($this->workflow_id === $targetStep->id) {
-            if (str_contains($this->status, 'rejected')) return 'active rejected';
-            if (str_contains($this->status, 'revision') || $this->status === 'perbaikan_brd') {
+            if ($this->status === 'rejected') {
+                return 'active rejected';
+            }
+            if ($this->status === 'revision' || $this->status === 'perbaikan_brd') {
                 return 'active revision'; 
             }
             return 'active'; 
+        }
+        
+        // 2. Jika status bukan workflow_id tapi teks statusnya mengandung rejected/revision,
+        // fallback ke step saat ini ($currentStep)
+        if ($currentStep && $currentStep->id === $targetStep->id) {
+            if ($this->status === 'rejected') {
+                return 'active rejected';
+            }
+            if ($this->status === 'revision' || $this->status === 'perbaikan_brd') {
+                return 'active revision'; 
+            }
         }
 
         if ($currentStep && $currentStep->sort_order > $targetStep->sort_order) {
@@ -103,8 +117,43 @@ class Submission extends Model
         if ($isLastStep && $this->status === $targetState) {
             return 'done';
         }
+        
         return '';
     }
+    // public function getStepStatus(string $targetState): string
+    // {
+    //     $currentStep = $this->step; 
+    //     $targetStep = Workflow::query()
+    //         ->where('state_code', $targetState)
+    //         ->first();
+
+    //     if (!$targetStep) return '';
+
+    //     if ($this->status === 'disetujui') {
+    //         return 'done';
+    //     }
+        
+    //     if ($this->workflow_id === $targetStep->id) {
+    //         if (str_contains($this->status, 'rejected')) return 'active rejected';
+    //         if (str_contains($this->status, 'revision') || $this->status === 'perbaikan_brd') {
+    //             return 'active revision'; 
+    //         }
+    //         return 'active'; 
+    //     }
+
+    //     if ($currentStep && $currentStep->sort_order > $targetStep->sort_order) {
+    //         return 'done';
+    //     }
+        
+    //     $isLastStep = ! Workflow::query()
+    //         ->where('sort_order', '>', $currentStep?->sort_order ?? 0)
+    //         ->exists();
+
+    //     if ($isLastStep && $this->status === $targetState) {
+    //         return 'done';
+    //     }
+    //     return '';
+    // }
     
     public function getStatusColorAttribute()
     {
